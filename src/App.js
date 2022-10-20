@@ -2,23 +2,20 @@ import React, {useEffect, useState} from "react";
 import Recipe from './Recipe';
 import './App.css';
 
-//const exampleReq = `https://api.edamam.com/search?q=chicken&app_id=${process.env.REACT_APP_APP_ID}'&app_key=${process.env.REACT_APP_APP_KEY}`
-
-const newReq = `https://cors-anywhere.herokuapp.com/https://api.edamam.com/api/recipes/v2/search?q=chicken&app_id=${process.env.REACT_APP_APP_ID}'&app_key=${process.env.REACT_APP_APP_KEY}`
-
 function App() {
 
+  const [recipes, setRecipes] = useState([])
+
   const getRecipes = async () => {
-    const res = await fetch(newReq)
+    const res = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita`)
     const data = await res.json()
-    console.log(data)
+    console.log(data.drinks)
+    setRecipes(data.drinks)
   }
 
   useEffect(() => {
     getRecipes()
   }, [])
-  
-  const [recipes, setRecipes] = useState([])
 
   return (
     <div className="App">
